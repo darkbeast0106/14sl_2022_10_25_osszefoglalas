@@ -6,17 +6,17 @@ if (file_exists("../models/_adatbazis.php")) {
 } else {
     die();
 }
-class PizzaFeltetModel extends Adatbazis {
+class PizzaAlapModel extends Adatbazis {
     public function list_all() 
     {
-        $sql = "SELECT * FROM feltetek";
+        $sql = "SELECT * FROM pizza_alapok";
         $result = $this->conn->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function insert($nev)
     {
-        $sql = "INSERT INTO feltetek(nev) VALUES (?)";
+        $sql = "INSERT INTO pizza_alapok(nev) VALUES (?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $nev);
         $stmt->execute();
