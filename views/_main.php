@@ -12,7 +12,7 @@
     <script>
         function active_link_beallitasa() {
             const oldal = "<?php echo $oldal ?>";
-            const navigacioLink = document.getElementById("nav_"+oldal);
+            const navigacioLink = document.getElementById("nav_" + oldal);
             navigacioLink.classList.add('active');
         }
     </script>
@@ -30,33 +30,38 @@
                     <li class="nav-item">
                         <a id="nav_pizza_list" class="nav-link" href="?oldal=pizza_list">Pizzák listázása</a>
                     </li>
-                    <li class="nav-item">
-                        <a id="nav_pizza_insert" class="nav-link" href="?oldal=pizza_insert">Pizza felvétele</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="nav_pizza_alap_insert" class="nav-link" href="?oldal=pizza_alap_insert">Pizza alap felvétele</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="nav_pizza_feltet_insert" class="nav-link" href="?oldal=pizza_feltet_insert">Pizza feltét felvétele</a>
-                    </li>
+                    <?php if (isset($_SESSION['felhasznalo'])) : ?>
+                        <li class="nav-item">
+                            <a id="nav_pizza_insert" class="nav-link" href="?oldal=pizza_insert">Pizza felvétele</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="nav_pizza_alap_insert" class="nav-link" href="?oldal=pizza_alap_insert">Pizza alap felvétele</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="nav_pizza_feltet_insert" class="nav-link" href="?oldal=pizza_feltet_insert">Pizza feltét felvétele</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a id="nav_regisztracio" class="nav-link" href="?oldal=regisztracio">Regisztráció</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="nav_bejelentkezes" class="nav-link" href="?oldal=bejelentkezes">Bejelentkezés</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="nav_kijelentkezes" class="nav-link" href="?oldal=kijelentkezes">Kijelentkezés</a>
-                    </li>
+                    <?php if (!isset($_SESSION['felhasznalo'])) : ?>
+                        <li class="nav-item">
+                            <a id="nav_regisztracio" class="nav-link" href="?oldal=regisztracio">Regisztráció</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="nav_bejelentkezes" class="nav-link" href="?oldal=bejelentkezes">Bejelentkezés</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a id="nav_kijelentkezes" class="nav-link" href="?oldal=kijelentkezes">Kijelentkezés</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </nav>
     <main class="container">
-        <?php 
-            include $controller;
+        <?php
+        include $controller;
         ?>
     </main>
 

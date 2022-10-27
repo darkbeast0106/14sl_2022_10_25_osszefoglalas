@@ -24,7 +24,7 @@ class FelhasznaloModel extends Adatbazis {
 
         if ($result->num_rows == 1) {
             $sor = $result->fetch_assoc();
-            if (password_verify($jelszo, $sor['jelszo'])) {
+            if (password_verify($jelszo, $sor['password'])) {
                $felhasznalo = $sor;
             }
         }

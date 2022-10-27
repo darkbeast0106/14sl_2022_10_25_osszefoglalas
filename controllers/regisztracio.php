@@ -1,4 +1,7 @@
 <?php 
+if (isset($_SESSION['felhasznalo'])) {
+    header("Location: /");
+}
 if ($_SERVER['REQUEST_METHOD'] == "POST") {   
     require_once "models/FelhasznaloModel.php";
     $felh_model = new FelhasznaloModel();
