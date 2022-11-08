@@ -21,4 +21,15 @@ class PizzaFelteteiModel extends Adatbazis {
         $stmt->bind_param("ii", $pizza_id, $feltet_id);
         $stmt->execute();
     }
+
+    public function get_by_pizza_id($pizza_id)
+    {
+        $sql = "SELECT * FROM pizza_feltetei
+            WHERE pizza_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $pizza_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

@@ -21,4 +21,15 @@ class PizzaFeltetModel extends Adatbazis {
         $stmt->bind_param("s", $nev);
         $stmt->execute();
     }
+    
+    public function get_by_id($id)
+    {
+        $sql = "SELECT * FROM feltetek
+            WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
 }
