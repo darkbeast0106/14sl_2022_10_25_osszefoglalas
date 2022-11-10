@@ -17,7 +17,7 @@
                     </li>
                 </ul>
                 <div class="card-footer">
-
+                    <img class="img-fluid" src="uploads/<?php echo $pizza['kep'] ?>" alt="<?php echo $pizza['nev'] ?>">
                 </div>
             </div>
         </div>
