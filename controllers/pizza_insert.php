@@ -6,10 +6,12 @@ if (!isset($_SESSION['felhasznalo'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    var_dump($_FILES);
     $nev = isset($_POST['nev']) ? $_POST['nev'] : "";
     $leiras = isset($_POST['leiras']) ? $_POST['leiras'] : "";
     $alap_id = isset($_POST['alap_id']) ? $_POST['alap_id'] : "";
     $feltet = isset($_POST['feltet']) ? $_POST['feltet'] : [];
+    $kep = isset($_FILES['kep']) ? $_FILES['kep'] : [];
     $hiba = "";
     if (empty($nev)) {
         $hiba .= "Név megadása kötelező. ";
@@ -29,11 +31,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $pizza_model = new PizzaModel();
         $pizza_feltetei_model = new PizzaFelteteiModel();
         try {
-            var_dump($_POST);
             $pizza_id = $pizza_model->insert($nev, $leiras, $alap_id);
             foreach ($feltet as $feltet_id) {
                 $pizza_feltetei_model->insert($pizza_id, $feltet_id);
             }
+
+            $kiterjesztes = pathinfo($kep['name'], PATHINFO_EXTENSION);
+            $kep_nev = $pizza_id . '.' . $kiterjesztes;
+            
+            copy($kep['tmp_name'], './uploads/'.$kep_nev);
+            $pizza_model->update_kep($pizza_id, $kep_nev);
         } catch (\mysqli_sql_exception $th) {
             $hiba = $th->getMessage();
             include "views/hiba_alert.php";
